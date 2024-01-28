@@ -96,6 +96,7 @@ fi
 #   --with-extra-cflags="$CPPFLAGS" \
 
 bash ./configure \
+    --build=x86_64-unknown-linux-gnu \
     --with-boot-jdk=$BOOT_JDK \
     --openjdk-target=$TARGET \
     --with-extra-cflags="$CFLAGS" \
