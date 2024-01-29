@@ -31,7 +31,8 @@ if [ "$BUILD_IOS" != "1" ]; then
   platform_args="--with-toolchain-type=gcc \
     --with-freetype-include=$FREETYPE_DIR/include/freetype2 \
     --with-freetype-lib=$FREETYPE_DIR/lib \
-    --build=x86_64-unknown-linux-gnu \"
+    --build=x86_64-unknown-linux-gnu \
+    "
   AUTOCONF_x11arg="--x-includes=$ANDROID_INCLUDE/X11"
   AUTOCONF_EXTRA_ARGS+="OBJCOPY=$OBJCOPY \
     AR=$AR \
