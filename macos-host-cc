@@ -8,5 +8,5 @@ else
   args=$@
 fi
 args=${args/"-isysroot $thesysroot"/}
-args=${args/"-miphoneos-version-min=11.0"/}
+args=${args/"-miphoneos-version-min=14.0"/}
 $thecxx $args --stdlib=libc++ -isysroot $themacsysroot

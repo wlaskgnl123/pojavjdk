@@ -269,7 +269,7 @@ index 8fc6adb3..8b5369a8 100644
  
     return true;
 diff --git a/hotspot/make/bsd/makefiles/gcc.make b/hotspot/make/bsd/makefiles/gcc.make
-index b45dd47a..2cd90ea9 100644
+index b45dd47a..fd94ee45 100644
 --- a/hotspot/make/bsd/makefiles/gcc.make
 +++ b/hotspot/make/bsd/makefiles/gcc.make
 @@ -248,7 +248,8 @@ endif
@@ -291,14 +291,24 @@ index b45dd47a..2cd90ea9 100644
  else
    # 6835796. Problem in GCC 4.3.0 with mulnode.o optimized compilation.
    ifeq ($(shell expr $(CC_VER_MAJOR) = 4 \& $(CC_VER_MINOR) = 3), 1)
-@@ -350,8 +351,8 @@ ifeq ($(OS_VENDOR), Darwin)
+@@ -348,10 +349,17 @@ ifeq ($(OS_VENDOR), Darwin)
+     MACOSX_VERSION_MIN=10.7.0
+   endif
    # The macro takes the version with no dots, ex: 1070
-   CFLAGS += -DMAC_OS_X_VERSION_MIN_REQUIRED=$(subst .,,$(MACOSX_VERSION_MIN)) \
+-  CFLAGS += -DMAC_OS_X_VERSION_MIN_REQUIRED=$(subst .,,$(MACOSX_VERSION_MIN)) \
++  CFLAGS_TMP = -DMAC_OS_X_VERSION_MIN_REQUIRED=$(subst .,,$(MACOSX_VERSION_MIN)) \
              -DMAC_OS_X_VERSION_MAX_ALLOWED=$(subst .,,$(MACOSX_VERSION_MIN)) \
 -            -mmacosx-version-min=$(MACOSX_VERSION_MIN)
 -  LFLAGS += -mmacosx-version-min=$(MACOSX_VERSION_MIN)
 +            -miphoneos-version-min=$(MACOSX_VERSION_MIN)
-+  LFLAGS += -miphoneos-version-min=$(MACOSX_VERSION_MIN)
++  LFLAGS_TMP = -miphoneos-version-min=$(MACOSX_VERSION_MIN)
++  ifdef CROSS_COMPILE_ARCH
++    HOSTCC  += $(CFLAGS_TMP)
++    HOSTCXX += $(CFLAGS_TMP)
++  else
++    CFLAGS += $(CFLAGS_TMP)
++    LFLAGS += -mmacosx-version-min=$(MACOSX_VERSION_MIN)
++  endif
  endif
  
  
