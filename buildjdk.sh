@@ -44,7 +44,7 @@ else
   platform_args="--with-toolchain-type=clang SDKNAME=iphoneos"
   # --disable-precompiled-headers
   AUTOCONF_x11arg="--with-x=/opt/X11/include/X11 --prefix=/usr/lib"
-  sameflags="-arch arm64 -DHEADLESS=1 -I$PWD/ios-missing-include -Wno-implicit-function-declaration"
+  sameflags="-arch arm64 -DHEADLESS=1 -I$PWD/ios-missing-include -Wno-c++11-narrowing -Wno-implicit-function-declaration -Wno-reserved-user-defined-literal -Wno-shift-negative-value"
   export CFLAGS+=" $sameflags"
   export LDFLAGS+=" -arch arm64"
   export BUILD_SYSROOT_CFLAGS="-isysroot ${themacsysroot}"
@@ -73,6 +73,7 @@ if [[ "$BUILD_IOS" != "1" ]]; then
   fi
 else
   git apply --reject --whitespace=fix ../patches/jdk8u_ios.diff || echo "git apply failed (ios patch set)"
+  git apply --reject --whitespace=fix ../patches/jdk8u_ios_fix_clang.diff || echo "git apply failed (ios clang fix patch set)"
 fi
 
 #   --with-extra-cxxflags="$CXXFLAGS -Dchar16_t=uint16_t -Dchar32_t=uint32_t" \
