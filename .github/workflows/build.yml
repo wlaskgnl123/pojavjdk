@@ -18,21 +18,21 @@ jobs:
     runs-on: [self-hosted, ubuntu-20.04]
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
     - name: Build with CI build script
       run: bash "ci_build_arch_${{matrix.arch}}.sh"
     - name: Upload JDK build output
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: "jdk21-${{matrix.arch}}"
         path: jdk21*.tar.xz
     - name: Upload JRE build output
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: 'jre21-${{matrix.arch}}'
         path: jre21*.tar.xz
     - name: Upload JRE debuginfo build output
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: "jre21-debuginfo-${{matrix.arch}}"
         path: dizout
@@ -43,7 +43,7 @@ jobs:
     continue-on-error: true
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Build with CI build script
       run: |
@@ -52,19 +52,19 @@ jobs:
         bash "ci_build_arch_aarch64.sh"
 
     - name: Upload JDK build output
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: "jdk21-ios-aarch64"
         path: jdk21*.tar.xz
 
     - name: Upload JRE build output
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: 'jre21-ios-aarch64'
         path: jre21*.tar.xz
 
     - name: Upload JRE debuginfo build output
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: "jre21-ios-debuginfo-aarch64"
         path: dizout
@@ -74,31 +74,31 @@ jobs:
     runs-on: [self-hosted, ubuntu-20.04]
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
     - name: Get jre21-aarch32
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: jre21-aarch32
         path: pojav
     - name: Get jre21-aarch64
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: jre21-aarch64
         path: pojav
     - name: Get jre21-x86
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: jre21-x86
         path: pojav
     - name: Get jre21-x86_64
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: jre21-x86_64
         path: pojav
     - name: Repack JRE
       run: bash "repackjre.sh" $GITHUB_WORKSPACE/pojav $GITHUB_WORKSPACE/pojav/jre21-pojav
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
           name: jre21-pojav
           path: pojav/jre21-pojav/*
